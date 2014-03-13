@@ -19,6 +19,7 @@
             <button type="submit">Create it!</button>
         </form>
 
+        <button id="test" onclick="sendping()">Send Ping!</button>
         <div id="pings"></div>
 
         <video id="localVideo" style="height: 150px;" oncontextmenu="return false;"></video>
@@ -32,10 +33,18 @@
 
             var host = location.origin.replace(/^http/, 'ws')
             var ws = new WebSocket(host);
+
             ws.onmessage = function (event) {
               var li = document.createElement('li');
               li.innerHTML = JSON.parse(event.data);
               document.querySelector('#pings').appendChild(li);
+            };
+
+            var sendping = function () {
+              var li = document.createElement('li');
+              li.innerHTML = 'Ping Sent';
+              document.querySelector('#pings').appendChild(li);
+              ws.send("A message");
             };
 
             // create our webrtc connection
