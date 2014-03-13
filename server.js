@@ -16,15 +16,14 @@ app.use(express.static(__dirname));
 // Connect to postgres
 console.log("Postresql URL is " + process.env.DATABASE_URL);
 
-// pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-// //  client.query('INSERT into users values (default,$1,$2)',['foo','foo@example.com']);
-//   client.query('SELECT * FROM users', function(err, result) {
-//     done();
-//     if(err) return console.error(err);
-//     console.log(result.rows);
-//   });
-// }
-//          );
+pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+//  client.query('INSERT into users values (default,$1,$2)',['foo','foo@example.com']);
+  client.query('SELECT * FROM users', function(err, result) {
+    done();
+    if(err) return console.error(err);
+    console.log(result.rows);
+  });
+});
 
 var check_login = function() {
    return false;
