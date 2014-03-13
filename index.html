@@ -13,9 +13,14 @@
         <button id="screenShareButton"></button>
         <p id="subTitle"></p>
         <form id="createRoom">
-            <input id="sessionInput"/>
+          Email: <input id="email"/> <br/>
+          Password: <input type=password id="password"/> <br/>
+          Room name: <input id="sessionInput"/><br/>
             <button type="submit">Create it!</button>
         </form>
+
+        <div id="pings"></div>
+
         <video id="localVideo" style="height: 150px;" oncontextmenu="return false;"></video>
         <div id="remotes"></div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
@@ -24,6 +29,14 @@
         <script>
             // grab the room from the URL
             var room = location.search && location.search.split('?')[1];
+
+            var host = location.origin.replace(/^http/, 'ws')
+            var ws = new WebSocket(host);
+            ws.onmessage = function (event) {
+              var li = document.createElement('li');
+              li.innerHTML = JSON.parse(event.data);
+              document.querySelector('#pings').appendChild(li);
+            };
 
             // create our webrtc connection
             var webrtc = new SimpleWebRTC({
@@ -43,7 +56,7 @@
                 // you can name it anything
                 if (room) webrtc.joinRoom(room);
             });
-            
+
             // Since we use this twice we put it here
             function setRoom(name) {
                 $('form').remove();
@@ -56,19 +69,24 @@
                 setRoom(room);
             } else {
                 $('form').submit(function () {
-                    var val = $('#sessionInput').val().toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
-                    webrtc.createRoom(val, function (err, name) {
-                        console.log(' create room cb', arguments);
-                    
-                        var newUrl = location.pathname + '?' + name;
-                        if (!err) {
-                            history.replaceState({foo: 'bar'}, null, newUrl);
-                            setRoom(name);
-                        } else {
-                            console.log(err);
-                        }
-                    });
-                    return false;          
+                    if (check_login()) {
+                      console.log("Login check succeeded.");
+                      var val = $('#sessionInput').val().toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
+                      webrtc.createRoom(val, function (err, name) {
+                          console.log(' create room cb', arguments);
+
+                          var newUrl = location.pathname + '?' + name;
+                          if (!err) {
+                              history.replaceState({foo: 'bar'}, null, newUrl);
+                              setRoom(name);
+                          } else {
+                              console.log(err);
+                          }
+                      });
+                      return false;
+                    } else {
+                      console.log("Bad password or username.");
+                    }
                 });
             }
 
@@ -94,7 +112,7 @@
                             setButton(false);
                         }
                     });
-                    
+
                 }
             });
         </script>

@@ -11,12 +11,13 @@
     "webrtcsupport": "0.7.1",
     "wildemitter": "0.0.5",
     "getscreenmedia": "0.3.x",
-    "socket.io-client": "0.9.16",
+    "socket.io": "0.9.16",
     "attachmediastream": "1.0.1",
     "hark": "0.1.1",
     "webrtc": "1.1.1",
     "mockconsole": "0.0.1",
-    "pg": "2.x"
+    "pg": "2.x",
+    "ws": "0.4.x"
   },
   "devDependencies": {
     "express": "3.x.x",

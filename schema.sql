@@ -36,7 +36,8 @@ SET default_with_oids = false;
 CREATE TABLE users (
     id integer NOT NULL,
     name character varying(80),
-    email character varying(80)
+    email character varying(80),
+    password varchar(80)
 );
 
 
@@ -74,9 +75,9 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: vagrant
 --
 
-COPY users (id, name, email) FROM stdin;
-1	Sean	me@seanpcallahan.net
-2	Mattox	mattoxbeckman@gmail.com
+COPY users (id, name, email, password) FROM stdin;
+1	Sean	me@seanpcallahan.net	secret
+2	Mattox	mattoxbeckman@gmail.com	secret
 \.
 
 
