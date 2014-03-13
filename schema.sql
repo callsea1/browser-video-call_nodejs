@@ -37,7 +37,7 @@ CREATE TABLE users (
     id integer NOT NULL,
     name character varying(80),
     email character varying(80),
-    password varchar(80)
+    password character varying(80)
 );
 
 
