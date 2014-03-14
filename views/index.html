@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>SimpleWebRTC Demo</title>
+        <title>Camcall - Video Chat</title>
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="css/atlas.css" rel="stylesheet" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <link href="css/font-awesome-ie7.min.css" rel="stylesheet" media="screen">
+    <link href="css/animate.min.css" rel="stylesheet" media="screen">
+    <link href="css/custom.css" rel="stylesheet" media="screen">
     </head>
     <body>
         <h1 id="title">Start a room</h1>
@@ -12,11 +19,11 @@
         </style>
         <button id="screenShareButton"></button>
         <p id="subTitle"></p>
-        <form id="createRoom">
+        <form id="createRoom" class="form-search">
           Email: <input id="email"/> <br/>
-          Password: <input type=password id="password"/> <br/>
-          Room name: <input id="sessionInput"/><br/>
-            <button type="submit">Create it!</button>
+          Password: <input type=password id="password" class="span4"/> <br/>
+          Room name: <input id="sessionInput" class="span4"/><br/>
+            <button type="submit" class="green-btn" class="span4">Create it!</button>
         </form>
 
         <button id="test" onclick="sendping()">Send Ping!</button>
