@@ -58,7 +58,7 @@ app.get("/room", function(request, response) {
       }
   }
   // Should not get here.
-  response.render('index', { title: 'ejs' });
+  // response.render('index', { title: 'ejs' });
 });
 
 
