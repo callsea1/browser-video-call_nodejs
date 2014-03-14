@@ -19,7 +19,7 @@ app.set("views", __dirname + "/views");
 
 //assets
 app.use(express.static(__dirname + '/public'));
-
+app.use(express.cookieParser());
 app.use(express.urlencoded());
 // Let's get rid of defaut Jade and use HTML templating language
 app.engine('html', require('ejs').renderFile);
@@ -28,7 +28,35 @@ app.set("view engine", "html");
 app.get("/", function(request, response) {
   response.render('landing', { title: 'ejs' });
 });
+
+
 app.get("/room", function(request, response) {
+  var data = request.body;
+  var qs = Object.keys(request.query);
+  if (qs[0]) {
+      console.log("Room requested " + qs[0]);
+      if (roomlist[qs[0]] == 2) {
+         // Room requested, already two participants
+         console.log("Requested room already has two participants.");
+         response.cookie('flash','That room is full')
+                 .redirect('landing');
+      } else {
+        roomlist[qs[0]] = 2;
+        console.log("New user joined room.");
+        response.render('index', { title: 'ejs' });
+      }
+  } else {
+      console.log("No room requested.");
+      console.log("Cookies: " + JSON.stringify(request.cookies));
+      if (request.cookies && request.cookies.auth) {
+         console.log("User authorized to create a room.");
+         response.render('index', { title: 'ejs' });
+      } else {
+         console.log("User needs to authenticate first.");
+         response.redirect('/');
+      }
+  }
+  // Should not get here.
   response.render('index', { title: 'ejs' });
 });
 
@@ -71,12 +99,15 @@ app.post("/newuser", function(request,response) {
         client.query('INSERT INTO users(name,email,password) values ($1,$2,$3)', [data.name,data.email,data.password],
                      function(err, result) {
                          done();
-                         if(err) return console.error(err)
-                         else console.log("New user added. " + data.email);
-                         response.cookie('auth',data.email)
+                         if(err) {
+                            console.error(err)
+                            response.cookie('auth',data.email)
+                             .cookie('flash','Database error').redirect('/');
+                         } else {
+                            console.log("New user added. " + data.email);
+                            response.cookie('auth',data.email)
                              .cookie('name',data.name).redirect('/room');
-                         }
-                     );
+                         } });
     });
 });
 
