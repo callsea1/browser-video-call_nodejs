@@ -55,8 +55,9 @@
               var li = document.createElement('li');
               li.innerHTML = 'Ping Sent';
               document.querySelector('#pings').appendChild(li);
-              ws.send(JSON.stringify({email: $('#email').val(),
-                                      password: $('#password').val()}));
+              ws.send(JSON.stringify({key: "login",
+                                      value: {email: $('#email').val(),
+                                              password: $('#password').val()}}));
             };
 
             // create our webrtc connection
@@ -84,6 +85,7 @@
                 $('h1').text(name);
                 $('#subTitle').text('Link to join: ' + location.href);
                 $('body').addClass('active');
+                ws.send(JSON.stringify({key: "room", value: name}));
             }
 
             function check_login() {
