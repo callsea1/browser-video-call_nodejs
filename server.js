@@ -30,6 +30,7 @@ app.get("/room", function(request, response) {
   response.render('index', { title: 'ejs' });
 });
 
+
 // Connect to postgres
 console.log("Postresql URL is " + process.env.DATABASE_URL);
 
@@ -71,10 +72,27 @@ wss.on('connection', function(ws) {
   console.log('websocket connection open');
 
   ws.on('message', function(data,flags) {
-      data = data + ' Pong';
-      ws.send(JSON.stringify(data), function () {});
-  });
+//      data = data + ' Pong';
+//      ws.send(JSON.stringify(data), function () {});
 
+      pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+//  client.query('INSERT into users values (default,$1,$2)',['foo','foo@example.com']);
+          data = JSON.parse(data);
+          client.query('SELECT * FROM users where email=$1 and password=$2', [data.email,data.password],
+                       function(err, result) {
+                           console.log("Data is " + data);
+                           console.log("Email is " + data.email);
+                           console.log("Result is " + JSON.stringify(result.rows));
+                           done();
+                           if(err) return console.error(err);
+                           if (result.rows.length > 0)
+                               ws.send(JSON.stringify(result.rows[0]), function () {});
+                           else
+                               ws.send(JSON.stringify("No such user."), function () {});
+
+          });
+      });
+   });
 
   ws.on('close', function() {
     console.log('websocket connection close');
