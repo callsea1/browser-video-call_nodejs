@@ -97,6 +97,10 @@ app.post("/newuser", function(request,response) {
                              .cookie('flash','User already exists.').redirect('/');
                          }
                      });
+        if (data.password != data.confirm) {
+            response.cookie('auth',data.email)
+                .cookie('flash','Passwords do not match.').redirect('/');
+        } else
         client.query('INSERT INTO users(name,email,password) values ($1,$2,$3)', [data.name,data.email,data.password],
                      function(err, result) {
                          done();
