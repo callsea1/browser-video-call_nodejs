@@ -30,6 +30,7 @@ app.get("/room", function(request, response) {
   response.render('index', { title: 'ejs' });
 });
 
+
 // Connect to postgres
 console.log("Postresql URL is " + process.env.DATABASE_URL);
 
