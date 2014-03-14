@@ -11,7 +11,24 @@ var privateKey = fs.readFileSync('fakekeys/privatekey.pem').toString(),
 var app = express();
 
 
-app.use(express.static(__dirname));
+// app.use(express.static(__dirname));
+
+// Set the view directory to /views
+app.set("views", __dirname + "/views");
+
+//assets
+app.use(express.static(__dirname + '/public'));
+
+// Let's get rid of defaut Jade and use HTML templating language
+app.engine('html', require('ejs').renderFile);
+app.set("view engine", "html");
+
+app.get("/", function(request, response) {
+  response.render('landing', { title: 'ejs' });
+});
+app.get("/room", function(request, response) {
+  response.render('index', { title: 'ejs' });
+});
 
 // Connect to postgres
 console.log("Postresql URL is " + process.env.DATABASE_URL);
@@ -67,4 +84,4 @@ wss.on('connection', function(ws) {
 
 var status = 'Not reset yet.';
 
-console.log('running on https://localhost:5001 and http://localhost:5000');
+console.log('running on http://localhost:5000');
