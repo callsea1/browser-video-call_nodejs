@@ -10,6 +10,7 @@ var privateKey = fs.readFileSync('fakekeys/privatekey.pem').toString(),
 
 var app = express();
 
+var roomlist = {};
 
 // app.use(express.static(__dirname));
 
@@ -47,8 +48,6 @@ var check_login = function() {
    return false;
 };
 
-exports.check_login = check_login;
-
 var open_port = Number(process.env.PORT || 5000);
 
 // var secure_port = Number(process.env.PORT || 5001);
@@ -69,34 +68,50 @@ wss.on('connection', function(ws) {
 //    ws.send(JSON.stringify(new Date()), function() {  });
 //  }, 1000);
 
+  var myRoomId = "none";
+
   console.log('websocket connection open');
 
   ws.on('message', function(data,flags) {
-//      data = data + ' Pong';
-//      ws.send(JSON.stringify(data), function () {});
+      data = JSON.parse(data);
 
-      pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-//  client.query('INSERT into users values (default,$1,$2)',['foo','foo@example.com']);
-          data = JSON.parse(data);
-          client.query('SELECT * FROM users where email=$1 and password=$2', [data.email,data.password],
-                       function(err, result) {
-                           console.log("Data is " + data);
-                           console.log("Email is " + data.email);
-                           console.log("Result is " + JSON.stringify(result.rows));
-                           done();
-                           if(err) return console.error(err);
-                           if (result.rows.length > 0)
-                               ws.send(JSON.stringify(result.rows[0]), function () {});
-                           else
-                               ws.send(JSON.stringify("No such user."), function () {});
+      // Register a room
+      switch (data.key) {
+        case "room":
+          ws.roomId = data.value;
+          roomlist[ws.roomId] = 1;
+          console.log("Room created: " + ws.roomId);
+          ws.send(JSON.stringify("Room is " + ws.roomId),function () {});
+          console.log("Rooms are: " + JSON.stringify(roomlist));
+          break;
+        case "login":
+          pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+              //  client.query('INSERT into users values (default,$1,$2)',['foo','foo@example.com']);
+              data = data.value;
+              client.query('SELECT * FROM users where email=$1 and password=$2', [data.email,data.password],
+                           function(err, result) {
+                               console.log("Data is " + data);
+                               console.log("Email is " + data.email);
+                               console.log("Result is " + JSON.stringify(result.rows));
+                               done();
+                               if(err) return console.error(err);
+                               if (result.rows.length > 0) {
+                                   ws.send(JSON.stringify(result.rows[0]), function () {});
+                                   foolist.push(result.id);
+                                   ws.send(JSON.stringify(foolist), function () {});
+                               } else
+                                   ws.send(JSON.stringify("No such user."), function () {});
 
+                           });
           });
-      });
-   });
+      }
 
-  ws.on('close', function() {
-    console.log('websocket connection close');
   });
+    ws.on('close', function() {
+        roomlist[ws.roomId] = 1;
+        console.log('websocket connection close');
+        console.log('room close is ' + ws.roomId);
+    });
 });
 
 var status = 'Not reset yet.';
