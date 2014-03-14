@@ -142,7 +142,10 @@ body {
 }
 #news-input {
 	height: 30px;
+	margin: 6px;
 	border: none;
+	padding: 4px;
+	width:75%;
 	
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
