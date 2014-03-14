@@ -17,7 +17,9 @@
     "webrtc": "1.1.1",
     "mockconsole": "0.0.1",
     "pg": "2.x",
-    "ws": "0.4.x"
+    "ws": "0.4.x",
+    "jade": "~1.3.0",
+    "ejs": "~0.8.5"
   },
   "devDependencies": {
     "express": "3.x.x",
