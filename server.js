@@ -47,7 +47,7 @@ app.post("/exist", function(request,response) {
                              response.cookie('auth',data.email)
                              .cookie('name',result.rows[0].name).render('index', { title: 'ejs' });
                          } else
-                             response.render('landing', { title: 'ejs' });
+                             response.cookie('flash','Login incorrect').render('landing', { title: 'ejs' });
                      });
     });
 });
