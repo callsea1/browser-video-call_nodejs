@@ -45,9 +45,9 @@ app.post("/exist", function(request,response) {
                          if(err) return console.error(err);
                          if (result.rows.length > 0) {
                              response.cookie('auth',data.email)
-                             .cookie('name',result.rows[0].name).render('index', { title: 'ejs' });
+                             .cookie('name',result.rows[0].name).redirect('/room');
                          } else
-                             response.cookie('flash','Login incorrect').render('landing', { title: 'ejs' });
+                             response.cookie('flash','Login incorrect').redirect('/');
                      });
     });
 });
