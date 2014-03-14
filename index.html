@@ -36,7 +36,11 @@
 
             ws.onmessage = function (event) {
               var li = document.createElement('li');
-              li.innerHTML = JSON.parse(event.data);
+              var m = JSON.parse(event.data);
+              if (m.id)
+                 li.innerHTML = m.name;
+              else
+                 li.innerHTML = JSON.parse(event.data);
               document.querySelector('#pings').appendChild(li);
             };
 
@@ -44,7 +48,8 @@
               var li = document.createElement('li');
               li.innerHTML = 'Ping Sent';
               document.querySelector('#pings').appendChild(li);
-              ws.send("A message");
+              ws.send(JSON.stringify({email: $('#email').val(),
+                                      password: $('#password').val()}));
             };
 
             // create our webrtc connection
