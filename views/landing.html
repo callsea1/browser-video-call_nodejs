@@ -50,10 +50,10 @@
                     <div class="price-bg">
                         <i class="icon-folder-open"></i>
                         <h2>Sign-up <span class="green"> New Users</span></h2>
-                        <form class="form-search" >
-                            <input type="text" class="span6" id="news-input" placeholder="Name" required>
-                            <input type="email" class="span6" id="news-input" placeholder="Email" required>
-                            <input type="password" class="span6" id="news-input" placeholder="Password" required>
+                        <form class="form-search"  action="/newuser" method="post">
+                            <input type="text" class="span6" id="news-input" name="name" placeholder="Name" required>
+                            <input type="email" class="span6" id="news-input" name="email" placeholder="Email" required>
+                            <input type="password" class="span6" id="news-input" name="password" placeholder="Password" required>
                             <input type="password" class="span6" id="news-input" placeholder="Confirm Password" required>
 
                             <button type="submit" id="new-sub" class="green-btn">Ok</button>

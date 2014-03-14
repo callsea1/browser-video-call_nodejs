@@ -52,6 +52,34 @@ app.post("/exist", function(request,response) {
     });
 });
 
+// HERE
+
+app.post("/newuser", function(request,response) {
+    var data = request.body;
+    console.log("Login attempted. " + JSON.stringify(data));
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+        client.query('SELECT * FROM users where email=$1', [data.email],
+                     function(err, result) {
+                         console.log("Email is " + data.email);
+                         done();
+                         if(err) return console.error(err);
+                         if (result.rows.length > 0) {
+                             response.cookie('auth',data.email)
+                             .cookie('flash','User already exists.').redirect('/');
+                         }
+                     });
+        client.query('INSERT INTO users(name,email,password) values ($1,$2,$3)', [data.name,data.email,data.password],
+                     function(err, result) {
+                         done();
+                         if(err) return console.error(err)
+                         else console.log("New user added. " + data.email);
+                         response.cookie('auth',data.email)
+                             .cookie('name',data.name).redirect('/room');
+                         }
+                     );
+    });
+});
+
 
 // Connect to postgres
 console.log("Postresql URL is " + process.env.DATABASE_URL);
