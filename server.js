@@ -26,6 +26,7 @@ app.engine('html', require('ejs').renderFile);
 app.set("view engine", "html");
 
 app.get("/", function(request, response) {
+    // The landing page JS will take care of clearing cookies.
   response.render('landing', { title: 'ejs' });
 });
 
@@ -39,7 +40,7 @@ app.get("/room", function(request, response) {
          // Room requested, already two participants
          console.log("Requested room already has two participants.");
          response.cookie('flash','That room is full')
-                 .redirect('landing');
+                 .redirect('/');
       } else {
         roomlist[qs[0]] = 2;
         console.log("New user joined room.");
@@ -167,7 +168,7 @@ wss.on('connection', function(ws) {
 
   });
     ws.on('close', function() {
-        roomlist[ws.roomId] = 1;
+        delete roomlist[ws.roomId];
         console.log('websocket connection close');
         console.log('room close is ' + ws.roomId);
     });
