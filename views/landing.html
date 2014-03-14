@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -13,35 +12,35 @@
 	<link href="css/font-awesome-ie7.min.css" rel="stylesheet" media="screen">
 	<link href="css/animate.min.css" rel="stylesheet" media="screen">
     <link href="css/custom.css" rel="stylesheet" media="screen">
-    
+
   </head>
   <body>
-    
+
     <div id="logo" style="margin-top:-107px;">
 	    <div class="container" >
 	    	<div class="row" >
 	    		<div class="span12">
-	    			<img src="img/camcall.png" alt="logo" class="logo-pos animated bounceIn delay1">    			
+	    			<img src="img/camcall.png" alt="logo" class="logo-pos animated bounceIn delay1">
 	    			<div id="catch-text" class="animated flipInX delay2">
 	    				<h1 class="lead-head"><strong>Try it now</strong>. A quick way to <span>connect</span>, and <span>enjoy</span>.</h1>
-	    				
+
 	    			</div><!--catch text -->
 	    		</div><!--span 12 -->
 	    	</div><!--row -->
 	    </div><!-- container -->
     </div><!--logo -->
-    
+
     <div id="prices" class="animated fadeIn delay3">
     	<div class="container">
     		<div class="row">
     			<div class="span6">
     				<div class="price-bg">
-    					<i class="icon-folder-open"></i> 
-                        <h2>Sign-in <span class="green"> Existing Members</span></h2>                      
-                        <form class="form-search" >
-                            <input type="email" class="span6" id="news-input" placeholder="Email" required>
-                            <input type="password" class="span6" id="news-input" placeholder="Password" required>
-                            <button type="submit" class="green-btn">Ok</button>
+    					<i class="icon-folder-open"></i>
+                        <h2>Sign-in <span class="green"> Existing Members</span></h2>
+                        <form class="form-search" action="/exist" method="post">
+                            <input type="email" class="span6" id="news-input" name="email" placeholder="Email" required>
+                            <input type="password" class="span6" id="news-input" name="password" placeholder="Password" required>
+                            <button id="exist-sub" class="green-btn">Ok</button>
                         </form><!-- form-search -->
 
     				</div><!--price bg -->
@@ -49,30 +48,30 @@
 
                 <div class="span6">
                     <div class="price-bg">
-                        <i class="icon-folder-open"></i> 
-                        <h2>Sign-up <span class="green"> New Users</span></h2>                      
+                        <i class="icon-folder-open"></i>
+                        <h2>Sign-up <span class="green"> New Users</span></h2>
                         <form class="form-search" >
                             <input type="text" class="span6" id="news-input" placeholder="Name" required>
                             <input type="email" class="span6" id="news-input" placeholder="Email" required>
                             <input type="password" class="span6" id="news-input" placeholder="Password" required>
                             <input type="password" class="span6" id="news-input" placeholder="Confirm Password" required>
 
-                            <button type="submit" class="green-btn">Ok</button>
+                            <button type="submit" id="new-sub" class="green-btn">Ok</button>
                         </form><!-- form-search -->
 
                     </div><!--price bg -->
                 </div><!-- span3 -->
-	
+
     		</div><!-- row -->
     	</div><!-- container -->
     </div><!-- prices -->
-    
-    
+
+
     <div id="copyright" class="animated fadeInUp delay5">
     	<div class="container">
     		<div class="row">
     			<p>&copy; Copyright CamCall - 2013 - All Rights Reserved.</p>
-    			
+
     			<div class="social">
 	    			<p>
 	    				<a href="#"><i class="icon-twitter"></i></a>
@@ -83,11 +82,12 @@
     		</div><!-- row -->
     	</div><!-- container -->
     </div><!-- copyright -->
-    
-    
-    
-    
+
+
+
+
     <script src="scripts/jquery.min.js"></script>
     <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/landing.js"></script>
   </body>
 </html>
