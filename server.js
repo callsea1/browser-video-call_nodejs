@@ -162,8 +162,6 @@ wss.on('connection', function(ws) {
           ws.send(JSON.stringify("Room is " + ws.roomId),function () {});
           console.log("Rooms are: " + JSON.stringify(roomlist));
           break;
-        case "login":
-
       }
 
   });

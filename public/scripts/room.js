@@ -51,6 +51,7 @@ if (room) {
                 setRoom(name);
             } else {
                 console.log(err);
+                alert("That room is already taken.  Try a different name.");
             }
         });
         return false;
