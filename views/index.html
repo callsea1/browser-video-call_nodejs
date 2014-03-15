@@ -12,11 +12,11 @@
     </head>
     <body>
 <div class="row">
-  <div class="span9">
+  <div class="span12">
     <h1 id="title" class="span12" align="center">Start a room</h1>
     <button id="screenShareButton" class="btn btn-info submit-btn top-btn" ></button>
-    <div class="row">
-      <div class="span6">
+    <div class="row-fluid">
+      <div class="span4">
         
         <p id="subTitle"></p>
         <form id="createRoom" class="form-search spacer" role="form">
@@ -37,9 +37,11 @@
           <div id="pings"></div>
         </form>
       </div>
-      <div class="span3">
-        <video id="localVideo" style="height: 150px;" oncontextmenu="return false;"></video>
-        <div id="remotes"></div>
+      <div class="span8">
+          <div class="row-fluid">
+          <video id="localVideo" style="height: 150px;" oncontextmenu="return false;"></video>
+          <div id="remotes"></div>
+        </div>
       </div>
     </div>
   </div>
