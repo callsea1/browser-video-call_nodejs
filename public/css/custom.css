@@ -51,6 +51,11 @@ box-shadow:inset 0 1px 3px rgba(0,0,0,.05),0 0 8px rgba(82,168,236,.6)
 	margin-top: 1%;
 }
 
+#subTitle{
+	color:white;
+	margin-top: 5%;
+}
+
 
 @media (max-width: 767px) {
 	.styled-input {
