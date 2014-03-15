@@ -11,27 +11,55 @@
     <link href="css/custom.css" rel="stylesheet" media="screen">
     </head>
     <body>
-        <h1 id="title">Start a room</h1>
-        <style>
-            #remotes video {
-                height: 150px;
-            }
-        </style>
-        <button id="screenShareButton"></button>
+<div class="row">
+  <div class="span9">
+    <h1 id="title" class="span12" align="center">Start a room</h1>
+    <button id="screenShareButton" class="btn btn-info submit-btn top-btn" ></button>
+    <div class="row">
+      <div class="span6">
+        
         <p id="subTitle"></p>
-        <form id="createRoom" class="form-search">
-          Email: <input id="email"/> <br/>
-          Password: <input type=password id="password" class="span4"/> <br/>
-          Room name: <input id="sessionInput" class="span4"/><br/>
-            <button type="submit" class="green-btn" class="span4">Create it!</button>
+        <form id="createRoom" class="form-search spacer" role="form">
+          <div class="form-group">
+          <label for="email" class="white-label">Email:  
+          </label><input class="span4 styled-input" id="email"/>
+        </div>
+         <div class="form-group">
+          <label for="password" class="white-label"> Password:  </label>
+          <input class="span4 styled-input" type="password" id="password"/>
+         </div>
+          <div class="form-group">
+          <label for="sessionInput" class="white-label"> Room name:  </label>
+          <input class="span4 styled-input" id="sessionInput"/>
+        </div>
+          <button type="submit" class="green-btn slim-btn" class="span2">Create it!</button>
+          <button id="test" onclick="sendping()" class="btn btn-info pull-right submit-btn" style="margin: 20% 48%;">Send Ping!</button>
+          <div id="pings"></div>
         </form>
-
-        <button id="test" onclick="sendping()">Send Ping!</button>
-        <div id="pings"></div>
-
+      </div>
+      <div class="span3">
         <video id="localVideo" style="height: 150px;" oncontextmenu="return false;"></video>
         <div id="remotes"></div>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+    <div id="copyright" class="animated fadeInUp delay5">
+      <div class="container">
+        <div class="row">
+          <p>&copy; Copyright CamCall - 2014 - All Rights Reserved.</p>
+          
+          <div class="social">
+            <p>
+              <a href="#"><i class="icon-twitter"></i></a>
+              <a href="#"><i class="icon-facebook"></i></a>
+              <a href="#"><i class="icon-google-plus"></i></a>
+            </p>
+          </div><!-- social -->
+        </div><!-- row -->
+      </div><!-- container -->
+    </div><!-- copyright -->
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
         <script src="scripts/socket.io.js"></script>
         <script src="scripts/simplewebrtc.bundle.js"></script>
         <script src="scripts/room.js"></script>
