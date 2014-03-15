@@ -19,7 +19,7 @@
     <div class="row-fluid" style="margin-top: 2%;">
       <div class="span4">
 
-        <p id="subTitle"></p>
+        <p id="subTitle"> <button onClick="ClipBoard();">Copy to Clipboard</button></p>
         <form id="createRoom" class="form-search spacer" role="form">
 <!--          <div class="form-group">
           <label for="email" class="white-label">Email:
@@ -69,5 +69,13 @@
         <script src="scripts/socket.io.js"></script>
         <script src="scripts/simplewebrtc.bundle.js"></script>
         <script src="scripts/room.js"></script>
+        <script>
+        function ClipBoard() 
+{
+subTitle.innerText = copytext.innerText;
+Copied = holdtext.createTextRange();
+Copied.execCommand("Copy");
+}
+        </script>
     </body>
 </html>
